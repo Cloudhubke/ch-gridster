@@ -2,149 +2,19 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <link rel="import" href="../ch-externallibraries/jquerylatest.html">
-<link rel="import" href="../ch-externallibraries/metroui.html">
 <link rel="import" href="../ch-externallibraries/jquery-gridster.html">
+<link rel="import" href="../ch-externallibraries/segment.html">
 
 
 <dom-module id="ch-gridster">
   <template>
-    <style>
-      :host {
-        display: block;
-        box-sizing: border-box;
-      }
 
-
-      .gridster * {
-        margin:0;
-        padding:0;
-      }
-
-      .gridster ul {
-        list-style-type: none;
-
-      }
-      .gridster ul li {
-        background-color: white;
-        overflow: hidden;
-      }
-
-      .gridster ul li:hover {
-        border: solid 2px lightblue;
-      }
-
-      .gridster li h2{
-        width: 100%;
-        line-height: 25px;
-        font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
-        font-size: 22px;
-        padding-bottom: 5px;
-        background-color: cyan;
-      }
-
-      .gridster li .panel{
-        height: 90%;
-        padding: 2px;
-        overflow: auto;
-      }
-
-      .gridster li .panel::-webkit-scrollbar {
-        width: 5px;
-      }
-
-
-      .gridster li header {
-        visibility: hidden;
-        width: 100%;
-        text-align: center;
-        background: lightblue;
-        display: block;
-        font-size: 11px;
-        line-height: normal;
-        margin-bottom: 0px;
-        cursor: move;
-        height: 25px;
-        position: absolute;
-        opacity: 0.4;
-      }
-
-      .gridster li header .widget-close {
-        padding: 4px 4px 6px ;
-        color: #333333;
-        cursor: pointer;
-        float: right;
-      }
-      .gridster li:hover > header{
-        visibility: visible;
-      }
-
-
-      .gridster {
-        margin: 0 auto;
-        text-align: left;
-
-        opacity: .8;
-
-        -webkit-transition: opacity .6s;
-        -moz-transition: opacity .6s;
-        -o-transition: opacity .6s;
-        -ms-transition: opacity .6s;
-        transition: opacity .6s;
-      }
-
-      .gridster .gs-w {
-        background: #DDD;
-        cursor: pointer;
-      }
-
-      .gridster .player {
-        background: #BBB;
-      }
-
-
-      .gridster .preview-holder {
-        border: none!important;
-        background: red!important;
-      }
-
-
-      #scrollView{
-        max-width: 100%;
-        min-height:100%;
-        max-height: 100%;
-      }
-
-      #map {
-        width: 100%;
-        height: 800px;
-      }
-
-      table td {
-        position:relative;
-      }
-
-
-    </style>
 
     <div class="gridster">
-      <ul id="gridstermain">
-        <li id="panel9" data-row="1" data-col="1" data-sizex="3" data-sizey="2" class="nopadding">
-          <header>||| <span data-args="panel9" panel-close="panel9" class="mif-cross align- widget-close"></span></header>
-          <h2>Lorem Ipsum</h2>
-          <div class="panel bg-yellow">
-            <p>
-
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-              Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-              Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
-              Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.
-            </p>
-          </div>
-        </li>
-      </ul>
+      <content select="#gridstermain"></content>
     </div>
-    
+
+
   </template>
 
 
@@ -176,7 +46,7 @@
           $(".widget-close").click(function(){
             var id=$(this).attr("panel-close");
             console.log(id);
-             gridster.remove_widget($('#'+id));
+            gridster.remove_widget($('#'+id));
           });
 
         });
@@ -184,10 +54,133 @@
       removewidget:function (e) {
         var args = e.target.getAttribute('data-args');
         console.log('Ard', args);
-      var gridster = $(".gridster ul").gridster().data('gridster');
+        var gridster = $(".gridster ul").gridster().data('gridster');
         gridster.remove_widget($("ul").find("[id='#panel9']"));
       }
 
     });
   </script>
 </dom-module>
+
+<style>
+  /*:host {*/
+    /*display: block;*/
+    /*box-sizing: border-box;*/
+  /*}*/
+
+
+  .gridster * {
+    margin:0;
+    padding:0;
+  }
+
+  .gridster ul {
+    list-style-type: none;
+
+  }
+  .gridster ul li {
+    background-color: white;
+    overflow: hidden;
+    border: solid 1px lightgrey;
+  }
+
+  .gridster ul li:hover {
+    border: solid 2px lightblue;
+  }
+
+  .gridster li h2{
+    width: 100%;
+    line-height: 25px;
+    font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
+    font-size: 22px;
+    padding-bottom: 5px;
+    background-color: lightgrey;
+    padding-left: 5px;
+  }
+
+  .gridster li .panel{
+    height: 75%;
+    overflow: auto;
+    padding: 10px;
+    text-align: justify;
+    margin-bottom: 20px;
+  }
+
+  .gridster li .panel::-webkit-scrollbar {
+    width: 1px;
+  }
+
+
+  .gridster li header {
+    visibility: hidden;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    display: block;
+    font-size: 11px;
+    line-height: normal;
+    margin-bottom: 0px;
+    cursor: move;
+    height: 25px;
+    position: absolute;
+    opacity: 0.5;
+  }
+
+  .gridster li header .widget-close {
+    padding: 4px 4px 6px ;
+    color: #333333;
+    cursor: pointer;
+    float: right;
+    opacity: 0.5;
+  }
+  .gridster li:hover > header{
+    visibility: visible;
+  }
+
+
+  .gridster {
+    margin: 0 auto;
+    text-align: left;
+
+    opacity: .8;
+
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+  }
+
+  .gridster .gs-w {
+    /*background: #DDD;*/
+    cursor: pointer;
+  }
+
+  .gridster .player {
+    background: #BBB;
+  }
+
+
+  .gridster .preview-holder {
+    border: none!important;
+    background: red!important;
+  }
+
+
+  #scrollView{
+    max-width: 100%;
+    min-height:100%;
+    max-height: 100%;
+  }
+
+  #map {
+    width: 100%;
+    height: 800px;
+  }
+
+  table td {
+    position:relative;
+  }
+
+
+</style>

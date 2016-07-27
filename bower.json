@@ -19,7 +19,8 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
-    "ch-externallibraries": "cloudhubke/ch-externallibraries"
+    "ch-externallibraries": "cloudhubke/ch-externallibraries",
+    "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.6"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
