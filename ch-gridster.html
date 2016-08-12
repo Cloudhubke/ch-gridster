@@ -1,16 +1,16 @@
 
 <link rel="import" href="../polymer/polymer.html">
-
-<link rel="import" href="../ch-externallibraries/jquerylatest.html">
 <link rel="import" href="../ch-externallibraries/jquery-gridster.html">
 
 
 <dom-module id="ch-gridster">
+
   <template>
 
 
-    <div class="gridster">
-      <content select="#gridstermain"></content>
+    <h2>{{gridname}}</h2>
+    <div>
+      <content select="#grid-ul-li"></content>
     </div>
 
 
@@ -22,49 +22,67 @@
       is: 'ch-gridster',
 
       properties: {
-
+        load:{
+          type:Boolean,
+          value:false,
+          observer:'_loadgrid'
+        },
+        gridname:{
+          type:String,
+          value:'Home Dashboard'
+        }
       },
       attached:function () {
-
-
-        $(function(){
-          var gridster=$(".gridster ul").gridster({
-            widget_base_dimensions: [200, 100],
-            widget_margins: [2, 2],
-            autogrow_cols: true,
-            resize: {
-              enabled: true,
-              max_size: [4, 4],
-              min_size: [1, 1]
-            },
-            draggable: {
-              handle: 'header'
-            }
-          }).data('gridster');
-
-          $(".widget-close").click(function(){
-            var id=$(this).attr("panel-close");
-            console.log(id);
-            gridster.remove_widget($('#'+id));
-          });
-
-        });
+        this.drawgridster();
       },
       removewidget:function (e) {
         var args = e.target.getAttribute('data-args');
         console.log('Ard', args);
         var gridster = $(".gridster ul").gridster().data('gridster');
         gridster.remove_widget($("ul").find("[id='#panel9']"));
+      },
+      drawgridster:function () {
+        if(this.load==true){
+
+          $(function(){
+            var gridster=$(".gridster ul").gridster({
+              widget_base_dimensions: [200, 100],
+              widget_margins: [2, 2],
+              autogrow_cols: true,
+              resize: {
+                enabled: true,
+                max_size: [4, 4],
+                min_size: [1, 1]
+              },
+              draggable: {
+                handle: 'header'
+              }
+            }).data('gridster');
+
+            $(".widget-close").click(function(){
+              var id=$(this).attr("panel-close");
+              console.log(id);
+              gridster.remove_widget($('#'+id));
+            });
+
+          });
+
+        }
+
+      },
+      _loadgrid:function () {
+        this.drawgridster();
       }
 
     });
   </script>
+
 </dom-module>
 
 <style>
   /*:host {*/
-    /*display: block;*/
-    /*box-sizing: border-box;*/
+  /*display: block;*/
+  /*box-sizing: border-box;*/
   /*}*/
 
 
@@ -81,6 +99,11 @@
     background-color: white;
     overflow: hidden;
     border: solid 1px lightgrey;
+    box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
+    -webkit-transform-origin: 50% 25%;
+    -ms-transform-origin: 50% 25%;
+    transform-origin: 50% 25%;
+    border-radius: 0.28571429rem;
   }
 
   .gridster ul li:hover {
@@ -89,12 +112,20 @@
 
   .gridster li h2{
     width: 100%;
-    line-height: 25px;
-    font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
-    font-size: 22px;
+    /*line-height: 25px;*/
     padding-bottom: 5px;
-    background-color: lightgrey;
-    padding-left: 5px;
+    padding-top: 5px;
+    padding-left: 10px;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: #FFFFFF;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.85);
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    height: 40px;
+    font-size: 1.42857143rem;
+    line-height: 1.2857em;
+    font-weight: bold;
   }
 
   .gridster li .panel{
@@ -113,23 +144,23 @@
   .gridster li header {
     visibility: hidden;
     width: 100%;
-    text-align: center;
     background: transparent;
     display: block;
     font-size: 11px;
+    text-align: right;
     line-height: normal;
     margin-bottom: 0px;
     cursor: move;
-    height: 25px;
+    height: 30px;
     position: absolute;
     opacity: 0.5;
   }
 
   .gridster li header .widget-close {
-    padding: 4px 4px 6px ;
-    color: #333333;
+    padding:0;
+    font-family: "Material Icons";
+    font-size: 22px;
     cursor: pointer;
-    float: right;
     opacity: 0.5;
   }
   .gridster li:hover > header{
@@ -183,3 +214,4 @@
 
 
 </style>
+
